@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Coding Quiz</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+  </head>
+
+  <body>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4">Javascript Quiz</h1>
+          <p class="lead">Answer the following questions in 60 seconds to test your Javascript fundamentals!</p>
+        
+        <!-- Start Button -->
+        <div>
+        <button type="button" class="btn btn-primary start-button">Start</button>
+        </div>
+
+        <!-- Timer -->
+        <div class="timer-count">
+            <h3>Click Start to Begin</h3>
+        </div>
+
+        <!-- Panel containing question, answers, and result -->
+        <div class="question-panel">
+
+            <!-- Question Number -->
+            <nav class="question-number" id="question-number">
+                <h2>[Number].</h2>
+            </nav>
+            <!-- Question text-->
+            <div class="question" id="question">
+                Insert Question Here
+            </div>
+            
+                <!-- Answer options -->
+                <div class="option-container">
+
+                    <!-- JS will inject text of the answer option -->
+                    <div class="btn-group-vertical">
+                        <a href="#" class="btn-group-vertical btn btn-secondary btn-lg active" id="optionA" role="button" aria-pressed="true">A)</a>
+
+                        <a href="#" class="btn-group-vertical btn btn-secondary btn-lg active" id="optionB" role="button" aria-pressed="true">B)</a>
+
+                        <a href="#" class="btn-group-vertical btn btn-secondary btn-lg active" id="optionC" role="button" aria-pressed="true">C)</a>
+
+                        <a href="#" class="btn-group-vertical btn btn-secondary btn-lg active" id="optionD" role="button" aria-pressed="true">D)</a>            
+                    </div>
+
+                <!-- Tell Correct or Incorrect -->
+            <div class="result" id="result"> </div> 
+                </div>
+        </div>
+    </div>
+    </div>
+        
+    <script src="./assets/js/script.js"></script>
+  </body>
+</html>
