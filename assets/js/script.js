@@ -1,12 +1,16 @@
 var startButton = document.querySelector(".start-button");
 var timerElement = document.querySelector(".timer-count");
 var question = document.querySelector(".question");
+var questionNumber = document.querySelector(".question-number");
 var result = document.querySelector(".result")
 var questionPanel = document.querySelector(".question-panel")
 var optionA = document.getElementById('optionA');
 var optionB = document.getElementById('optionB');
 var optionC = document.getElementById('optionC');
 var optionD = document.getElementById('optionD');
+var form = document.querySelector(".form");
+var answerSelected = document.querySelector('input[name="options"]:checked').value
+var submit = document.getElementById("submit")
 
 
 var quizDone = false;
@@ -15,143 +19,123 @@ var timerCount;
 questionsCorrect = 0;
 
 // Questions as objects and their answers
-const Questions = [{
-    id: 0,
+var Questions = [{
     q: "What does '.js' mean at the end of the file",
-    a: [{ text: "A", isCorrect: false },
-        { text: "B", isCorrect: false },
-        { text: "Javascript", isCorrect: true },
-        { text: "D", isCorrect: false }
-    ]
-
+    A: "1A",
+    B: "1B",
+    C: "1C Javascript",
+    D: "1D",
+    answer: "1C Javascript",
+}, 
+{
+    q: "Question 2",
+    A: "2A",
+    B: "2B Answer",
+    C: "2C",
+    D: "2D",
+    answer: "2B Answer",
 },
 {
-    id: 1,
-    q: "What is question number 2?",
-    a: [{ text: "Javascript", isCorrect: true },
-        { text: "B", isCorrect: false },
-        { text: "C", isCorrect: false },
-        { text: "D", isCorrect: false }
-    ]
-
+    q: "Question 3",
+    A: "3A",
+    B: "3B Answer",
+    C: "3C",
+    D: "3D",
+    answer: "3B Answer",
 },
 {
-    id: 2,
-    q: "What is question number 3?",
-    a: [{ text: "Javascript", isCorrect: false },
-        { text: "", isCorrect: true },
-        { text: "", isCorrect: false },
-        { text: "", isCorrect: false }
-    ]
-
-},  
+    q: "Question 4",
+    A: "4A",
+    B: "4B",
+    C: "4C",
+    D: "4D Answer",
+    answer: "4D Answer",
+},
 {
-    id: 3,
-    q: "What is question number 4?",
-    a: [{ text: "", isCorrect: false },
-        { text: "", isCorrect: false },
-        { text: "Javascript", isCorrect: true },
-        { text: "", isCorrect: true }
-    ]
-
-},  
-{
-    id: 4,
-    q: "What is question number 5?",
-    a: [{ text: "", isCorrect: false },
-        { text: "Javascript", isCorrect: true },
-        { text: "", isCorrect: false },
-        { text: "", isCorrect: false }
-    ]
-
-},  
-{
-    id: 5,
-    q: "What does '.js' mean at the end of the file",
-    a: [{ text: "Javascript", isCorrect: true },
-        { text: "", isCorrect: false },
-        { text: "", isCorrect: false },
-        { text: "", isCorrect: false }
-    ]
-
-},  
+    q: "Question 5",
+    A: "5A Answer",
+    B: "5B",
+    C: "5C",
+    D: "5D",
+    answer: "5A Answer",
+},
 ]
-// Click start to begin quiz
-startButton.addEventListener("click", startGame);
 
 // TO DO: getHighScores function from Local Storage
 function init() {
     getHighScores();
 }
 
+// Click start to begin quiz
+startButton.addEventListener("click", startGame);
+
 // The startGame function is called when the start button is clicked
 function startGame() {
-    quizDone = false;
-    timerCount = 10;
+
+    timerCount = 30;
+
     // Prevents start button from being clicked when quiz is in progress
     startButton.disabled = true;
     startTimer();
-    generateQuestion();
-    generateAnswers();
+
+    // For loop to generate the question and its four options 
+    for (i=0; i < Questions.length; i++) {
+        generateQuestion(i);
+        generateAnswers(i);
+
+        form.addEventListener("submit", (event) {
+            if (answerSelected == answer);
+        })
+        checkAnswer();
+        }
 }
 
-// startTimer function decreases time and gives quiz score if done early
+function generateQuestion(questionNumber) {
+    console.log(questionNumber);
+    // Generate question at i index
+    question.innerHTML = Questions[questionNumber].q;
+    questionNumber.innerHTML = questionNumber.value + ".";
+}
+
+function generateAnswers(questionNumber) {
+    optionA.innerHTML = Questions[questionNumber].A;
+    optionB.innerHTML = Questions[questionNumber].B;
+    optionC.textContent = Questions[questionNumber].C;
+    optionD.textContent = Questions[questionNumber].D;
+}
+
+function checkAnswer() {
+    
+    console.log(answerSelected)
+
+}
+
+// Counts timer down from 60
 function startTimer() {
     timer = setInterval(function() {
         timerCount--;
 
-        // Add timerCount text to HTML #Element
+        // Show count text
         timerElement.textContent = timerCount;
 
         // TO DO: If user answers all questions and timer is still up
         
         // If timer runs out before all questions answered
         if (timerCount === 0) {
-            // scoreScreen();
+            scoreScreen();
             clearInterval(timer);
         }
     }, 1000);
-}
-
-// TO DO: generateQuestion function
-function generateQuestion() {
-    for (i=0; i < Questions.length; i++)
-    // Add to the question line: the question text at 0th index
-    question.innerHTML = Questions.q;
-}
-    // - generateQuestionNum
-
-// TO DO: generateAnswers function
-function generateAnswers() {
-    optionA.innerHTML = Questions[id].a[0].text;
-    optionB.innerHTML = Questions[id].a[1].text;
-    optionC.innerHTML = Questions[id].a[2].text;
-    optionD.innerHTML = Questions[id].a[3].text;        
 }
 
 function scoreScreen () {
     questionPanel.textContent = `You scored ${questionsCorrect} out of 10!`
 }
 
-// TO DO: Give score to User at end of quiz 
+// TO DO: Give score and store in Local Storage
 
 
 // TO DO: correctAnswer
 // function correctAnswer() {
-//     optionA.value = Questions[(id)].a[0].isCorrect;
-//     optionB.value = Questions[id].a[1].isCorrect;
-//     optionC.value = Questions[id].a[2].isCorrect;
-//     optionD.value = Questions[id].a[3].isCorrect;
-
-//         if (optionA)
-//     })
-    
-// }
 
 // TO DO: incorrectAnswer
-
-
-
-
-
-// TO DO: Store quiz score to Local Storage

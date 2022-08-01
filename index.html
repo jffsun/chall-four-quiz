@@ -12,7 +12,7 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
           <h1 class="display-4">Javascript Quiz</h1>
-          <p class="lead">Answer the following questions in 60 seconds to test your Javascript fundamentals!</p>
+          <p class="lead">Answer the following questions in one minute and test your Javascript fundamentals!</p>
         
         <!-- Start Button -->
         <div>
@@ -29,30 +29,44 @@
 
             <!-- Question Number -->
             <nav class="question-number" id="question-number">
-                <h2>[Number].</h2>
+                <h2></h2>
             </nav>
+
             <!-- Question text-->
             <div class="question" id="question">
                 Insert Question Here
             </div>
             
                 <!-- Answer options -->
-                <div class="option-container">
+                <form class="option-container form">
 
-                    <!-- JS will inject text of the answer option -->
-                    <div class="btn-group-vertical">
-                        <a href="#" class="btn-group-vertical btn btn-secondary btn-lg active" id="optionA" role="button" aria-pressed="true">A)</a>
+                  <!-- JS will inject text of the answer option -->
+                  <!-- Add RADIO BUTTONS -->
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="options" id="optionA" value="optionA" checked>
+                    <label class="form-check-label" id="optionA" for="optionA">A.</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="options" id="optionB" value="optionB">
+                    <label class="form-check-label" id="optionB" for="optionB">B.</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="options" id="optionC" value="optionC">
+                    <label class="form-check-label" id="optionC" for="optionC">C.</label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="options" id="optionD" value="optionD">
+                    <label class="form-check-label" id="optionD" for="optionD">D.</label>
+                  </div>
 
-                        <a href="#" class="btn-group-vertical btn btn-secondary btn-lg active" id="optionB" role="button" aria-pressed="true">B)</a>
+                  <!-- Submit button -->
+                  <input type="submit" name="mysubmit" id="submit" value="Submit"/>
+                </form>
+                
 
-                        <a href="#" class="btn-group-vertical btn btn-secondary btn-lg active" id="optionC" role="button" aria-pressed="true">C)</a>
-
-                        <a href="#" class="btn-group-vertical btn btn-secondary btn-lg active" id="optionD" role="button" aria-pressed="true">D)</a>            
-                    </div>
-
+                  
                 <!-- Tell Correct or Incorrect -->
             <div class="result" id="result"> </div> 
-                </div>
         </div>
     </div>
     </div>
