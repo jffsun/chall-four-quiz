@@ -2,21 +2,18 @@ var startButton = document.querySelector(".start-button");
 var timerElement = document.querySelector(".timer-count");
 var question = document.querySelector(".question");
 var questionNumber = document.querySelector(".question-number");
-var result = document.querySelector(".result")
 var questionPanel = document.querySelector(".question-panel")
-var optionA = document.getElementById('optionA');
-var optionB = document.getElementById('optionB');
-var optionC = document.getElementById('optionC');
-var optionD = document.getElementById('optionD');
-var form = document.querySelector(".form");
-var answerSelected = document.querySelector('input[name="options"]:checked').value
+var optionA = document.getElementById("optionA");
+var optionB = document.getElementById("optionB");
+var optionC = document.getElementById("optionC");
+var optionD = document.getElementById("optionD");
+var form = document.querySelector("form");
 var submit = document.getElementById("submit")
-
-
+var answerButtons = document.querySelector(".btn-group-vertical");
 var quizDone = false;
 var timer;
 var timerCount;
-questionsCorrect = 0;
+var questionsCorrect = 0;
 
 // Questions as objects and their answers
 var Questions = [{
@@ -60,10 +57,17 @@ var Questions = [{
     answer: "5A Answer",
 },
 ]
+var questionNumber = 0;
+var answer = Questions[questionNumber].answer;
+var selectA = Questions[questionNumber].A;
+var selectB = Questions[questionNumber].B;
+var selectC = Questions[questionNumber].C;
+var selectD = Questions[questionNumber].D;
 
 // TO DO: getHighScores function from Local Storage
 function init() {
     getHighScores();
+    addListeners();
 }
 
 // Click start to begin quiz
@@ -78,23 +82,22 @@ function startGame() {
     startButton.disabled = true;
     startTimer();
 
-    // For loop to generate the question and its four options 
-    for (i=0; i < Questions.length; i++) {
-        generateQuestion(i);
-        generateAnswers(i);
-
-        form.addEventListener("submit", (event) {
-            if (answerSelected == answer);
-        })
-        checkAnswer();
-        }
+    console.log("test")
+    generateQuestion(questionNumber);
+    console.log("test2")
+    generateAnswers(questionNumber);
+    console.log("test3")
+    // While loop to generate the question and its four options 
+    //  while (questionNumber < Questions.length) {
+    //     console.log("test4")
+    //     // newQuestion(questionNumber);
+    //  }
 }
 
 function generateQuestion(questionNumber) {
-    console.log(questionNumber);
     // Generate question at i index
-    question.innerHTML = Questions[questionNumber].q;
-    questionNumber.innerHTML = questionNumber.value + ".";
+    question.innerHTML = Questions[questionNumber].q
+    // TO DO: Show question number
 }
 
 function generateAnswers(questionNumber) {
@@ -104,10 +107,75 @@ function generateAnswers(questionNumber) {
     optionD.textContent = Questions[questionNumber].D;
 }
 
-function checkAnswer() {
-    
-    console.log(answerSelected)
+function newQuestion(questionNumber) {
+    selectA = Questions[questionNumber].A;
+    selectB = Questions[questionNumber].B;
+    selectC = Questions[questionNumber].C;
+    selectD = Questions[questionNumber].D;
+    answer = Questions[questionNumber].answer;
+}    
 
+function addListeners () {
+    optionA.addEventListener("click", function(event)
+    { if (selectA == answer) {
+        console.log("correct");
+        questionsCorrect++;
+        
+    } else {
+        console.log("incorrect");
+    } questionNumber++
+    selectA = Questions[questionNumber].A;
+    selectB = Questions[questionNumber].B;
+    selectC = Questions[questionNumber].C;
+    selectD = Questions[questionNumber].D;
+    answer = Questions[questionNumber].answer;
+    })
+
+     // Check B
+     optionB.addEventListener("click", function(event)
+     { if (selectB == answer) {
+         console.log("correct");
+         questionsCorrect++;
+     } else {
+         console.log("incorrect");
+     } questionNumber++
+     selectA = Questions[questionNumber].A;
+     selectB = Questions[questionNumber].B;
+     selectC = Questions[questionNumber].C;
+     selectD = Questions[questionNumber].D;
+     answer = Questions[questionNumber].answer;
+     })
+
+      // Check C
+    optionC.addEventListener("click", function(event)
+    { if (selectC == answer) {
+        console.log("correct");
+        questionsCorrect++;
+    } else {
+        console.log("incorrect");
+    } questionNumber++
+    selectA = Questions[questionNumber].A;
+    selectB = Questions[questionNumber].B;
+    selectC = Questions[questionNumber].C;
+    selectD = Questions[questionNumber].D;
+    answer = Questions[questionNumber].answer;
+    })
+
+     // Check D
+     optionD.addEventListener("click", function(event)
+     { if (selectD == answer) {
+         console.log("correct");
+         questionsCorrect++;
+     } else {
+         console.log("incorrect");
+     } questionNumber++
+     selectA = Questions[questionNumber].A;
+     selectB = Questions[questionNumber].B;
+     selectC = Questions[questionNumber].C;
+     selectD = Questions[questionNumber].D;
+     answer = Questions[questionNumber].answer;
+     })
+     
 }
 
 // Counts timer down from 60

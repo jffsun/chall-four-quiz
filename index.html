@@ -27,10 +27,10 @@
         <!-- Panel containing question, answers, and result -->
         <div class="question-panel">
 
-            <!-- Question Number -->
-            <nav class="question-number" id="question-number">
+            <!-- TO DO: Display Question Number -->
+            <!-- <nav class="question-number" id="question-number">
                 <h2></h2>
-            </nav>
+            </nav> -->
 
             <!-- Question text-->
             <div class="question" id="question">
@@ -38,13 +38,20 @@
             </div>
             
                 <!-- Answer options -->
-                <form class="option-container form">
+                <div class="option-container">
 
-                  <!-- JS will inject text of the answer option -->
-                  <!-- Add RADIO BUTTONS -->
+                  <div class="btn-group-vertical">
+              
+                    <button type="button" class="btn btn-light" id="optionA">A. </button>
+                    <button type="button" class="btn btn-light" id="optionB">B. </button>
+                    <button type="button" class="btn btn-light" id="optionC">C. </button>
+                    <button type="button" class="btn btn-light" id="optionD">D. </button>
+
+                  </div>
+                  <!-- Radio Buttons
                   <div class="form-check">
-                    <input class="form-check-input" type="radio" name="options" id="optionA" value="optionA" checked>
-                    <label class="form-check-label" id="optionA" for="optionA">A.</label>
+                   <input class="form-check-input optionA" type="radio" name="options" id="optionA" value="optionA" checked>
+                    <label class="form-check-label" id="optionA" for="optionA"></label>
                   </div>
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="options" id="optionB" value="optionB">
@@ -57,17 +64,16 @@
                   <div class="form-check">
                     <input class="form-check-input" type="radio" name="options" id="optionD" value="optionD">
                     <label class="form-check-label" id="optionD" for="optionD">D.</label>
-                  </div>
+                  </div> -->
 
                   <!-- Submit button -->
-                  <input type="submit" name="mysubmit" id="submit" value="Submit"/>
-                </form>
+                  <!-- <input type="submit" name="mysubmit" id="submit" value="Submit"/>
+                </form> -->
                 
-
                   
-                <!-- Tell Correct or Incorrect -->
-            <div class="result" id="result"> </div> 
-        </div>
+                    <!-- Tell Correct or Incorrect -->
+                <div class="result" id="result"> </div> 
+              </div>
     </div>
     </div>
         
