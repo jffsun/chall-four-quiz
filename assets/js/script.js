@@ -9,11 +9,13 @@ var optionC = document.getElementById("optionC");
 var optionD = document.getElementById("optionD");
 var form = document.querySelector("form");
 var submit = document.getElementById("submit")
-var answerButtons = document.querySelector(".btn-group-vertical");
+var answerChoices = document.querySelector(".btn-group-vertical");
 var quizDone = false;
 var timer;
 var timerCount;
 var questionsCorrect = 0;
+var questionNumber;
+var verticalButtons = document.querySelector(".btn-group-vertical")
 
 // Questions as objects and their answers
 var Questions = [{
@@ -57,17 +59,17 @@ var Questions = [{
     answer: "5A Answer",
 },
 ]
-var questionNumber = 0;
-var answer = Questions[questionNumber].answer;
-var selectA = Questions[questionNumber].A;
-var selectB = Questions[questionNumber].B;
-var selectC = Questions[questionNumber].C;
-var selectD = Questions[questionNumber].D;
+// var answer = Questions[questionNumber].answer;
+// var selectA = Questions[questionNumber].A;
+// var selectB = Questions[questionNumber].B;
+// var selectC = Questions[questionNumber].C;
+// var selectD = Questions[questionNumber].D;
 
 // TO DO: getHighScores function from Local Storage
 function init() {
     getHighScores();
     addListeners();
+    
 }
 
 // Click start to begin quiz
@@ -75,107 +77,67 @@ startButton.addEventListener("click", startGame);
 
 // The startGame function is called when the start button is clicked
 function startGame() {
-
-    timerCount = 30;
+    timerCount = 60;
 
     // Prevents start button from being clicked when quiz is in progress
     startButton.disabled = true;
     startTimer();
+    console.log("game start");
+    questionNumber = 0;
+    
+        generateQuestion(questionNumber);
+        console.log("question number " + questionNumber + " displayed");
 
-    console.log("test")
-    generateQuestion(questionNumber);
-    console.log("test2")
-    generateAnswers(questionNumber);
-    console.log("test3")
-    // While loop to generate the question and its four options 
-    //  while (questionNumber < Questions.length) {
-    //     console.log("test4")
-    //     // newQuestion(questionNumber);
-    //  }
+        generateAnswers(questionNumber);
+        console.log("answer options for " + questionNumber + " displayed");
+
+        // 
+        answerChoices.addEventListener("click", function(event) {
+            var selected = event.target;
+            
+            // If user clicks a button
+            if (selected.matches("button")) {
+                validateAnswer(selected);
+                generateQuestion(questionNumber);
+                generateAnswers(questionNumber);
+            }
+        }) 
+        if (questionNumber == 5) {
+            scoreScreen();
+        }  
 }
 
 function generateQuestion(questionNumber) {
-    // Generate question at i index
-    question.innerHTML = Questions[questionNumber].q
+    // Inject question at questionNumber to the Question Line
+    question.innerHTML = Questions[questionNumber].q;
     // TO DO: Show question number
 }
 
 function generateAnswers(questionNumber) {
+    // Inject option choices at questionNumber to each answer button
     optionA.innerHTML = Questions[questionNumber].A;
     optionB.innerHTML = Questions[questionNumber].B;
     optionC.textContent = Questions[questionNumber].C;
     optionD.textContent = Questions[questionNumber].D;
 }
 
-function newQuestion(questionNumber) {
-    selectA = Questions[questionNumber].A;
-    selectB = Questions[questionNumber].B;
-    selectC = Questions[questionNumber].C;
-    selectD = Questions[questionNumber].D;
-    answer = Questions[questionNumber].answer;
-}    
-
-function addListeners () {
-    optionA.addEventListener("click", function(event)
-    { if (selectA == answer) {
+function validateAnswer (selected) {
+    var answer = Questions[questionNumber].answer;
+    if (selected.textContent == answer) {
         console.log("correct");
         questionsCorrect++;
-        
+        questionNumber++;
     } else {
         console.log("incorrect");
-    } questionNumber++
-    selectA = Questions[questionNumber].A;
-    selectB = Questions[questionNumber].B;
-    selectC = Questions[questionNumber].C;
-    selectD = Questions[questionNumber].D;
-    answer = Questions[questionNumber].answer;
-    })
 
-     // Check B
-     optionB.addEventListener("click", function(event)
-     { if (selectB == answer) {
-         console.log("correct");
-         questionsCorrect++;
-     } else {
-         console.log("incorrect");
-     } questionNumber++
-     selectA = Questions[questionNumber].A;
-     selectB = Questions[questionNumber].B;
-     selectC = Questions[questionNumber].C;
-     selectD = Questions[questionNumber].D;
-     answer = Questions[questionNumber].answer;
-     })
+        // Lose 5 seconds if answer is incorrect
+        timerCount -= 5;
+        questionNumber++;
+    }
+}
 
-      // Check C
-    optionC.addEventListener("click", function(event)
-    { if (selectC == answer) {
-        console.log("correct");
-        questionsCorrect++;
-    } else {
-        console.log("incorrect");
-    } questionNumber++
-    selectA = Questions[questionNumber].A;
-    selectB = Questions[questionNumber].B;
-    selectC = Questions[questionNumber].C;
-    selectD = Questions[questionNumber].D;
-    answer = Questions[questionNumber].answer;
-    })
-
-     // Check D
-     optionD.addEventListener("click", function(event)
-     { if (selectD == answer) {
-         console.log("correct");
-         questionsCorrect++;
-     } else {
-         console.log("incorrect");
-     } questionNumber++
-     selectA = Questions[questionNumber].A;
-     selectB = Questions[questionNumber].B;
-     selectC = Questions[questionNumber].C;
-     selectD = Questions[questionNumber].D;
-     answer = Questions[questionNumber].answer;
-     })
-     
+function nextQuestion() {
+    questionNumber++;
 }
 
 // Counts timer down from 60
@@ -190,8 +152,8 @@ function startTimer() {
         
         // If timer runs out before all questions answered
         if (timerCount === 0) {
-            scoreScreen();
             clearInterval(timer);
+            scoreScreen();
         }
     }, 1000);
 }
@@ -201,9 +163,3 @@ function scoreScreen () {
 }
 
 // TO DO: Give score and store in Local Storage
-
-
-// TO DO: correctAnswer
-// function correctAnswer() {
-
-// TO DO: incorrectAnswer
