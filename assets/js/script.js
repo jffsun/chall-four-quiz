@@ -16,6 +16,7 @@ var timerCount;
 var questionsCorrect = 0;
 var questionNumber;
 var verticalButtons = document.querySelector(".btn-group-vertical")
+var scoreList = document.querySelector(".score-list")
 
 // Questions as objects and their answers
 var Questions = [{
@@ -59,17 +60,33 @@ var Questions = [{
     answer: "5A Answer",
 },
 ]
-// var answer = Questions[questionNumber].answer;
-// var selectA = Questions[questionNumber].A;
-// var selectB = Questions[questionNumber].B;
-// var selectC = Questions[questionNumber].C;
-// var selectD = Questions[questionNumber].D;
 
-// TO DO: getHighScores function from Local Storage
 function init() {
-    getHighScores();
-    addListeners();
+    getScores();
+}
+
+init();
+
+function getScores() {
+    // Get stored data from local storage and parse into array elements
+    var storedQuizProfiles = JSON.parse(localStorage.getItem("quizProfile"));
     
+    // If there are quizProfiles to retrieve, then update scores array
+    if (storedQuizProfiles !== null) {
+        scores = storedQuizProfiles;
+        
+    } else {
+        scores = [];
+        return;
+    }
+
+}
+
+function renderScores() {
+    todoList.innerHTML = "";
+
+  // Add text to #todoCount. Displays the length of the todo array
+  todoCountSpan.textContent = todos.length;
 }
 
 // Click start to begin quiz
@@ -85,35 +102,46 @@ function startGame() {
     console.log("game start");
     questionNumber = 0;
     
+        // Generate first question
         generateQuestion(questionNumber);
-        console.log("question number " + questionNumber + " displayed");
+        console.log("question displayed");
 
+        // Generate first question's answers
         generateAnswers(questionNumber);
-        console.log("answer options for " + questionNumber + " displayed");
+        console.log("answer options displayed");
 
-        // 
+        // Click answer button validates that answer
         answerChoices.addEventListener("click", function(event) {
             var selected = event.target;
             
-            // If user clicks a button
+            // If user clicks an answer button 
             if (selected.matches("button")) {
+
+                // Check selected answer against question answer
                 validateAnswer(selected);
-                generateQuestion(questionNumber);
-                generateAnswers(questionNumber);
+
+                // Generate new question if length of questions not reached
+                if (questionNumber < Questions.length) {
+                    generateQuestion(questionNumber);
+                    generateAnswers(questionNumber);
+
+                    } else {
+
+                        // Show end screen after last question answered
+                        scoreScreen();
+                    }
             }
         }) 
-        if (questionNumber == 5) {
-            scoreScreen();
-        }  
 }
 
 function generateQuestion(questionNumber) {
-    // Inject question at questionNumber to the Question Line
+
+    // Inject question text to question element
     question.innerHTML = Questions[questionNumber].q;
-    // TO DO: Show question number
 }
 
 function generateAnswers(questionNumber) {
+
     // Inject option choices at questionNumber to each answer button
     optionA.innerHTML = Questions[questionNumber].A;
     optionB.innerHTML = Questions[questionNumber].B;
@@ -136,10 +164,6 @@ function validateAnswer (selected) {
     }
 }
 
-function nextQuestion() {
-    questionNumber++;
-}
-
 // Counts timer down from 60
 function startTimer() {
     timer = setInterval(function() {
@@ -148,18 +172,45 @@ function startTimer() {
         // Show count text
         timerElement.textContent = timerCount;
 
-        // TO DO: If user answers all questions and timer is still up
-        
         // If timer runs out before all questions answered
         if (timerCount === 0) {
-            clearInterval(timer);
             scoreScreen();
         }
     }, 1000);
 }
 
 function scoreScreen () {
-    questionPanel.textContent = `You scored ${questionsCorrect} out of 10!`
+    clearInterval(timer);
+    window.alert(`You scored ${questionsCorrect} out of 10!`);
+
+    // Ask for user initials and only accept two characters
+    var initials = ""
+    while (initials.length !== 2) {
+        initials = window.prompt("Enter your initials below. Initials must be two characters");
+    }
+    saveLastQuiz(questionsCorrect, initials);
 }
 
-// TO DO: Give score and store in Local Storage
+function displayHighScores(scores) {
+    for (i=0; i < scores.length; i++) {
+        if (i > 2) {
+            break;
+        }
+        console.log(scores[i]);
+    }
+}
+
+function saveLastQuiz(questionsCorrect, initials) {
+    var quizProfile = {
+        user: initials,
+        score: questionsCorrect,
+    };
+    scores = (JSON.parse(localStorage.getItem("scores")||'[]'));
+    scores.push(quizProfile);
+    scores.sort((a, b) => {
+        return b.score - a.score;
+    });
+    displayHighScores(scores);
+    // Store score and intials to local storage
+    localStorage.setItem("scores", JSON.stringify(scores));
+}
