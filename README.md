@@ -26,11 +26,13 @@ The application informs the user whether their selected answer is correct or inc
 ### Saving Your Score
 
 After taking the quiz, the user will store their score and their intials into local storage.
+
 ![Ask For Initials](./assets/images/screenshot5.jpg)
 
 ### High Scores
 
 After entering your initials and saving your score, you are able to view the top 3 scores from previous quiz attempts. 
+
 ![High Scores](./assets/images/screenshot6.jpg)
 
 ### Link to Github Page
