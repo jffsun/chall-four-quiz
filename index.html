@@ -13,45 +13,40 @@
         <div class="container">
           <h1 class="display-4">Javascript Quiz</h1>
           <p class="lead">Answer the following questions in one minute and test your Javascript fundamentals!</p>
-        
-        <!-- Start Button -->
-        <div>
-        <button type="button" class="btn btn-primary start-button">Start</button>
-        </div>
+          <p class="lead">CAREFUL: Each incorrect question costs you 5 seconds.</p>
 
-        <!-- Timer -->
-        <div class="timer-count">
-            <h3>Click Start to Begin</h3>
-        </div>
-
-        <!-- Panel containing question, answers, and result -->
-        <div class="question-panel">
-
-            <!-- Question text-->
-            <div class="question" id="question">
-                Insert Question Here
+          <!-- Start Button -->
+          <div>
+            <button type="button" class="btn btn-primary start-button">Start</button>
             </div>
-            
-                <!-- Answer options -->
-                <div class="option-container">
 
-                  <div class="btn-group-vertical">
-              
-                    <button type="button" class="btn btn-light" id="optionA">A. </button>
-                    <button type="button" class="btn btn-light" id="optionB">B. </button>
-                    <button type="button" class="btn btn-light" id="optionC">C. </button>
-                    <button type="button" class="btn btn-light" id="optionD">D. </button>
+          <!-- Timer -->
+          <div class="timer-count">
+            <h3>Click Start to Begin</h3>
+          </div>
 
-                  </div>
-       
-                
-                  
-                    <!-- Tell Correct or Incorrect -->
-                <div class="result" id="result"> </div> 
+          <!-- Panel containing question, answers, and result -->
+          <div class="question-panel">
+
+              <!-- Question text-->
+            <div class="question" id="question"></div>
+    
+              <!-- Answer options -->
+              <div class="option-container">
+
+                <div class="answer-buttons">
+                  <button type="button" class="btn btn-light" id="optionA">A. </button>
+                  <button type="button" class="btn btn-light" id="optionB">B. </button>
+                  <button type="button" class="btn btn-light" id="optionC">C. </button>
+                  <button type="button" class="btn btn-light" id="optionD">D. </button>
+                </div>
               </div>
+            </div>
+
+          <!-- Tell Correct or Incorrect -->
+          <div class="result" id="result"></div> 
+        </div>
     </div>
-    </div>
-        
     <script src="./assets/js/script.js"></script>
   </body>
 </html>

@@ -1,3 +1,57 @@
+.jumbotron {
+    background: #B9EEFF;
+    height: 100vh;
+    margin-bottom: 0;
+}
+
+.container {
+    background:  #FFC386;
+    border: 4px outset;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    padding-top: 50px;
+    padding-bottom: 75px;
+}
+
 .question-panel {
     background: #fff;
+    justify-content: center;
+    font-size: 1.25rem;
+}
+
+.option-container {
+    background: #FFAB86;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #FF9A6D;
+    border-color: #FF9A6D;
+    margin-bottom: 30px;
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+    color: #fff;
+    background-color: #FFCFBA;
+    border-color: #FFCFBA;
+    margin-bottom: 30px;
+}
+
+.btn-light {
+    background: #FF8853;
+}
+
+.question {
+    padding-bottom: 30px;
+    background: #FFAB86;
+
+}
+
+.answer-buttons {
+    justify-content: space-between;
+}
+
+.timer-count {
+    font-size: 1.5rem;
 }
